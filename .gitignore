@@ -1,38 +1,88 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ==============================================================================
+# .gitignore: FILES THAT GIT SHOULD NOT TRACK
+# ==============================================================================
+#
+# What is this file?
+#   Git keeps a history of the files in this project and uploads them to
+#   GitHub when you push. Some files must NOT go there: files with secret keys,
+#   and files that programs create automatically (which are big, change all the
+#   time, and can be re-created at any time). This file lists them. Git acts
+#   as if those files didn't exist: "git status" doesn't show them, and
+#   "git add" skips them.
+#
+# How to read it:
+#   - Each line that doesn't start with # is a pattern: a file or folder name,
+#     sometimes with special characters. Git ignores every file or folder whose
+#     name matches a pattern.
+#   - Lines that start with # are notes for people, like this one.
+#   - A * matches any characters, any number of them (also none), within a
+#     single file or folder name. For example, *.pem matches key.pem and
+#     cert.pem, and npm-debug.log* matches npm-debug.log and
+#     npm-debug.log.12345.
+#   - A / at the START means "only in the project's top folder". /node_modules
+#     ignores the node_modules folder at the top, but not a folder of the same
+#     name deeper inside. Without it, the pattern matches at any depth.
+#   - A / at the END means "only folders, not files", for example /.next/.
+#
+# Two things that surprise people:
+#   - .gitignore only affects files that Git isn't tracking yet. If a file was
+#     already committed, adding its name here doesn't remove it from Git or
+#     from GitHub. (To stop tracking it: git rm --cached FILENAME.)
+#   - Ignored files still exist on your computer, and the app still uses them.
+#     They are only kept out of Git and GitHub.
+#
+# This file itself IS tracked, so everyone who copies the project gets the
+# same rules. The supabase folder has its own .gitignore, with rules for the
+# files inside that folder.
+# ==============================================================================
 
-# dependencies
+# --- Packages -----------------------------------------------------------------
+# The code libraries that "npm install" downloads. Thousands of files; anyone
+# can re-create them with "npm install", so they are never uploaded.
 /node_modules
+# Files of Yarn, another package manager. This project uses npm, but the
+# patterns do no harm.
 /.pnp
 .pnp.js
 .yarn/install-state.gz
 
-# testing
+# --- Test reports -------------------------------------------------------------
+# Reports that the automated tests can create.
 /coverage
 
-# next.js
+# --- The built app ------------------------------------------------------------
+# Next.js creates these when you run or build the app (npm run dev, npm run
+# build). They are re-created each time.
 /.next/
 /out/
-
-# production
 /build
 
-# misc
-.DS_Store
+# --- Secret keys and settings -------------------------------------------------
+# .env*.local matches every file whose name starts with .env and ends with
+# .local, with anything (or nothing) in between: .env.local,
+# .env.test.local, .env.development.local, .env.production.local.
+# These hold your own values and secret keys. They do NOT match the templates
+# .env.example and .env.test.example, which hold only fake values and are
+# meant to be on GitHub.
+.env*.local
+# A plain .env file (some tutorials use one) can hold secret keys too.
+.env
+# Files ending in .pem hold private keys or certificates, for example key.pem.
 *.pem
 
-# debug
+# --- Files that tools create on your computer ---------------------------------
+# The Mac's Finder creates .DS_Store files in folders you open.
+.DS_Store
+# Error logs that npm and Yarn write when something goes wrong.
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# local env files
-.env*.local
-
-# vercel
+# The Vercel command-line tool's link to your Vercel project.
 .vercel
-
-# typescript
+# TypeScript's build cache, and a file that Next.js writes for TypeScript.
 *.tsbuildinfo
 next-env.d.ts
 
+# --- Scratch folder -----------------------------------------------------------
+# For temporary files you don't want in Git.
 _tmp/
