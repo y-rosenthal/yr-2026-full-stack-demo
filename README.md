@@ -53,10 +53,10 @@ A full-stack SaaS task management application built with Next.js and Supabase, f
 npm install
 ```
 
-2. Create environment files - update the values with your keys.
+2. Create environment files, then replace the XXXX values with your own (the comments in each file say where to find them). `.env.local` is for running the app; `.env.test.local` is only for the automated tests (`npm test`).
 ```bash
 cp .env.example .env.local
-cp .env.example .env.test.local
+cp .env.test.example .env.test.local
 ```
 
 3. Run development server:
@@ -147,15 +147,15 @@ returning key_id;
 
 ### Required Environment Variables
 
-Add to `.env.local` and `.env.test.local`:
+`.env.example` and `.env.test.example` explain each variable and where to find its value.
 
 ```bash
-# Add this to both:
+# .env.local (to run the app) and .env.test.local (for the tests) both need these:
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...   # publishable key (older projects: anon key)
 
-# Only .env.test.local needs these:
-SUPABASE_SERVICE_KEY=your-service-key
+# Only .env.test.local needs these (they are secret: never put them in .env.local):
+SUPABASE_SERVICE_KEY=sb_secret_...                 # secret key (older projects: service_role key)
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_PRICE_ID=price_...
 STRIPE_WEBHOOK_SECRET=whsec_...
