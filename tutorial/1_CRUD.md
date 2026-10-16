@@ -15,7 +15,7 @@ Get credentials from Project Settings → Configuration → API:
 
 - Project URL: https://[project-id].supabase.co
 - Project Reference: [project-id] (looks like 'abcdefghijklm')
-- Publishable key: starts with `sb_publishable_` (Project Settings > API Keys; older projects had an `anon` `public` key instead, starting with `eyJhbGciOiJIUzI1NiIs...`)
+- Publishable key: starts with `sb_publishable_` (Project Settings > API Keys)
 
 You'll need these credentials later to set up your NextJS project with Supabase.
 

@@ -107,10 +107,10 @@ Basically, force the user to the login page (index page) if they are not logged 
 
 The integration tests have been now updated to have utility functions for creating and deleting test users.
 
-You will need the Supabase service client to do this, so update your `.env.test.local` to also have the Supabase secret key, which you can find in your Supabase dashboard: **Project Settings > API > API Keys > `service_role` `secret`**.
+You will need the Supabase service client to do this, so update your `.env.test.local` to also have the Supabase secret key, which you can find in your Supabase dashboard: **Project Settings > API Keys > Secret keys** (it starts with `sb_secret_`).
 
 ```sh
-SUPABASE_SERVICE_KEY="XXXX"
+SUPABASE_SECRET_KEY="XXXX"
 ```
 
 Auth tests are in `tests/integration/2_auth.test.ts`. The CRUD tests were also updated to use a test user, and some utility functions.

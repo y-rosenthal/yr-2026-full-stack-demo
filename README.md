@@ -152,10 +152,10 @@ returning key_id;
 ```bash
 # .env.local (to run the app) and .env.test.local (for the tests) both need these:
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...   # publishable key (older projects: anon key)
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...   # publishable key
 
 # Only .env.test.local needs these (they are secret: never put them in .env.local):
-SUPABASE_SERVICE_KEY=sb_secret_...                 # secret key (older projects: service_role key)
+SUPABASE_SECRET_KEY=sb_secret_...                  # secret key
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_PRICE_ID=price_...
 STRIPE_WEBHOOK_SECRET=whsec_...

@@ -1,35 +1,29 @@
 // The Supabase API keys that Edge Functions use.
 //
-// Supabase gives every Edge Function its project's keys in environment variables.
-// Newer projects use publishable and secret keys, in SUPABASE_PUBLISHABLE_KEYS and
-// SUPABASE_SECRET_KEYS: each is a JSON object of named keys, such as
-// {"default": "sb_secret_..."}. Older projects have the legacy anon and service_role
-// keys, in SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY, which Supabase is
-// retiring. Use the new key when the project has one, and the legacy key otherwise.
+// Supabase gives every Edge Function its project's keys in two environment
+// variables, SUPABASE_PUBLISHABLE_KEYS and SUPABASE_SECRET_KEYS. Each holds a
+// JSON object of named keys, such as {"default": "sb_secret_..."}: a project can
+// have several keys of each kind, and a new project has one of each, named
+// "default".
 
-function getKey(newKeysVariable: string, legacyVariable: string): string {
-  const keys = Deno.env.get(newKeysVariable);
-  if (keys) {
-    try {
-      const parsed = JSON.parse(keys) as Record<string, string>;
-      const key = parsed["default"] ?? Object.values(parsed)[0];
-      if (key) return key;
-    } catch {
-      // Not valid JSON: use the legacy key below.
-    }
+function getKey(variable: string): string {
+  let keys: Record<string, string> = {};
+  try {
+    keys = JSON.parse(Deno.env.get(variable) ?? "{}");
+  } catch {
+    // Not valid JSON: reported below.
   }
-  return Deno.env.get(legacyVariable) ?? "";
+  const key = keys["default"] ?? Object.values(keys)[0];
+  if (!key) {
+    throw new Error(
+      `No Supabase key found in ${variable}. Check Project Settings > API Keys in the Supabase dashboard.`
+    );
+  }
+  return key;
 }
 
-// Low privileges; Row Level Security applies. Replaces the legacy anon key.
-export const SUPABASE_PUBLISHABLE_KEY = getKey(
-  "SUPABASE_PUBLISHABLE_KEYS",
-  "SUPABASE_ANON_KEY"
-);
+// Low privileges; Row Level Security applies.
+export const SUPABASE_PUBLISHABLE_KEY = getKey("SUPABASE_PUBLISHABLE_KEYS");
 
 // Bypasses Row Level Security: use only inside Edge Functions, never in the browser.
-// Replaces the legacy service_role key.
-export const SUPABASE_SECRET_KEY = getKey(
-  "SUPABASE_SECRET_KEYS",
-  "SUPABASE_SERVICE_ROLE_KEY"
-);
+export const SUPABASE_SECRET_KEY = getKey("SUPABASE_SECRET_KEYS");

@@ -80,12 +80,12 @@ Now we'll update the edge function `supabase/functions/create-task-with-ai/index
 * Apply a `priority` label to the task (we will update this later to use AI).
 * Update the task with the new label.
 
-Also, notice that this function needs environment variables `SUPABASE_URL` and `SUPABASE_ANON_KEY`. But we didn't need to set them because there's a few secrets that Supabase adds by default:
+Also, notice that this function needs the project's URL and publishable key. But we didn't need to set them because there's a few secrets that Supabase adds by default (`supabase/functions/_shared/supabaseKeys.ts` reads the keys):
 
 ```text
 SUPABASE_URL
-SUPABASE_ANON_KEY
-SUPABASE_SERVICE_ROLE_KEY
+SUPABASE_PUBLISHABLE_KEYS
+SUPABASE_SECRET_KEYS
 SUPABASE_DB_URL
 ```
 
