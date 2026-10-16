@@ -15,7 +15,7 @@ Get credentials from Project Settings → Configuration → API:
 
 - Project URL: https://[project-id].supabase.co
 - Project Reference: [project-id] (looks like 'abcdefghijklm')
-- `anon` `public` Key: starts with `eyJhbGciOiJIUzI1NiIs...`
+- Publishable key: starts with `sb_publishable_` (Project Settings > API Keys; older projects had an `anon` `public` key instead, starting with `eyJhbGciOiJIUzI1NiIs...`)
 
 You'll need these credentials later to set up your NextJS project with Supabase.
 
@@ -23,7 +23,7 @@ Create a file called `.env.local` and `.env.test.local` and put those variables 
 
 ```sh
 NEXT_PUBLIC_SUPABASE_URL="https://XXXX.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="XXXX"
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="XXXX"
 ```
 
 ## Install Supabase
@@ -99,7 +99,7 @@ import { createBrowserClient } from "@supabase/ssr";
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
 );
 ```
 
