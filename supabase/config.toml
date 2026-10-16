@@ -255,6 +255,12 @@ inspector_port = 8083
 # Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
 # entrypoint = "./functions/MY_FUNCTION_NAME/index.ts"
 
+# Stripe calls this function, and Stripe doesn't send a Supabase login token, so
+# Supabase must not require one. The function checks the Stripe-Signature header
+# instead, with the webhook signing secret (STRIPE_WEBHOOK_SECRET).
+[functions.stripe-webhook]
+verify_jwt = false
+
 [analytics]
 enabled = true
 port = 54327
