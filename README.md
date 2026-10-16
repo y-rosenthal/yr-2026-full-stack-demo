@@ -1,5 +1,15 @@
 # Task App: Fullstack SaaS Project Tutorial 2025
 
+> **About this copy.** This repository is a copy (not a GitHub fork) of
+> [pixegami/task-app](https://github.com/pixegami/task-app) by Pixegami, taken on
+> October 16, 2026 from commit
+> [`60a0b1e`](https://github.com/pixegami/task-app/commit/60a0b1e56ee567cf8ff417c44139bbbd5fd7b137)
+> ("fix: Add Stripe SK via SQL Editor instead of a migration", January 25, 2025), with
+> its full commit history. It is maintained by Y. Rosenthal for a university course,
+> with fixes so that the app works with the current versions of Supabase, Next.js and
+> the other services. Changes made after the copy are in this repository's commit
+> history. The original license, [CC BY-NC 4.0](LICENSE.md), still applies.
+
 A full-stack SaaS task management application built with Next.js and Supabase, featuring AI-powered task labeling, image attachments, and Stripe subscriptions.
 
 - Specific tutorial documents can be found in the `/tutorial` folder.
