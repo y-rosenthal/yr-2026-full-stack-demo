@@ -1,4 +1,13 @@
-# Supabase
+# Files in the supabase folder that Git should not track.
+# (How these patterns work: see the comments in the .gitignore file in the
+# project's top folder.)
+
+# Files the Supabase CLI writes on your computer, for example which project
+# this folder is linked to (npx supabase link). They are re-created as needed.
 .branches
 .temp
+
+# A .env file in this folder can hold secret keys for the Edge Functions when
+# they run on your computer. The real secrets live on Supabase
+# (npx supabase secrets set).
 .env
