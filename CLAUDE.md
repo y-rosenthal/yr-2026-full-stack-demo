@@ -65,5 +65,6 @@ tutorial, partly out of date), follow the course notes.
   a task label; `create-stripe-session` opens Stripe Checkout or the customer portal;
   `stripe-webhook` receives Stripe's events and updates the user's plan.
 - `supabase/config.toml`: settings for the Supabase CLI.
-- `tests/`: Jest integration tests (`npm test`); they need `.env.test.local`.
+- `tests/`: Jest tests (`npm test`). The integration tests (`tests/integration/`) need
+  `.env.test.local`; the unit tests (`npx jest tests/unit`) need no keys.
 - `tutorial/`: the original 2025 tutorial documents.

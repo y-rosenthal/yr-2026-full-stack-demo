@@ -135,6 +135,14 @@ const completion = await openai.chat.completions.create({
 });
 ```
 
+> **Update (2026):** the function in this repository now does more than this first
+> version. It sends OpenAI the full list of existing labels (the five default labels
+> plus the labels the user has already used), and if none of them fits, OpenAI may
+> suggest one new short label that does not mimic an existing one (for example, not
+> `my-home` when `home` exists). The function checks the reply before it saves it
+> (`supabase/functions/_shared/labelRules.ts`), and the migration
+> `supabase/migrations/8_flexible_labels.sql` lets the database store such labels.
+
 Deploy the function again. Run the tests. They should now pass.
 
 If you need to debug your functions, you can find metrics and logs in your Supabase console. Go to **Edge Functions > [Your Function] > Logs** or **Invocations**.

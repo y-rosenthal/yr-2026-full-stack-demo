@@ -28,7 +28,7 @@ import {
   Trash2,
   AlertOctagon,
 } from "lucide-react";
-import { labels } from "@/lib/labels";
+import { getLabelOptions } from "@/lib/labels";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
@@ -45,6 +45,7 @@ function TaskForm() {
   const {
     task,
     date,
+    userLabels,
     setDate,
     updateTask,
     saveTask,
@@ -222,7 +223,7 @@ function TaskForm() {
               <SelectValue placeholder="Select a label" />
             </SelectTrigger>
             <SelectContent>
-              {labels.map((label) => (
+              {getLabelOptions([...userLabels, task.label]).map((label) => (
                 <SelectItem key={label.value} value={label.value}>
                   {label.label}
                 </SelectItem>

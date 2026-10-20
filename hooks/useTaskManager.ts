@@ -21,6 +21,7 @@ export function useTaskManager(taskId?: string): UseTaskManagerReturn {
   // State for single task management
   const [task, setTask] = useState<Task | null>(null);
   const [date, setDate] = useState<Date | undefined>(undefined);
+  const [userLabels, setUserLabels] = useState<string[]>([]);
 
   // State for task list management
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -56,6 +57,28 @@ export function useTaskManager(taskId?: string): UseTaskManagerReturn {
     };
 
     fetchTask();
+  }, [taskId]);
+
+  // Fetch the labels the user has used (for the label drop-down).
+  // Row Level Security limits this to the user's own tasks.
+  useEffect(() => {
+    if (!taskId) return;
+
+    const fetchUserLabels = async () => {
+      const { data, error } = await supabase
+        .from("tasks")
+        .select("label")
+        .not("label", "is", null);
+
+      if (error) {
+        console.error("Error fetching labels:", error);
+        return;
+      }
+      const used = (data || []).map((row) => row.label as string);
+      setUserLabels(Array.from(new Set(used)).sort());
+    };
+
+    fetchUserLabels();
   }, [taskId]);
 
   // Fetch all tasks
@@ -253,6 +276,7 @@ export function useTaskManager(taskId?: string): UseTaskManagerReturn {
     task,
     tasks,
     date,
+    userLabels,
     error,
     isLoading,
 
