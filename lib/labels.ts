@@ -1,3 +1,5 @@
+// The default labels and their colours. The AI can also suggest new labels
+// (see supabase/functions/_shared/labelRules.ts); those get a grey badge.
 export const labels = [
   {
     value: "work",
@@ -41,8 +43,23 @@ export type LabelType = (typeof labels)[number]["value"];
 export const getLabelColors = (label: string) => {
   const labelObj = labels.find((l) => l.value === label);
   return {
-    "bg-color": labelObj?.["bg-color"] || "bg-gray-500",
-    "text-color": labelObj?.["text-color"] || "text-gray-500",
-    "border-color": labelObj?.["border-color"] || "border-gray-500",
+    "bg-color": labelObj?.["bg-color"] || "bg-gray-100",
+    "text-color": labelObj?.["text-color"] || "text-gray-800",
+    "border-color": labelObj?.["border-color"] || "border-gray-300",
   };
+};
+
+// The choices for a label drop-down: the default labels, then the user's own
+// labels (each once).
+export const getLabelOptions = (userLabels: (string | null)[]) => {
+  const options: { value: string; label: string }[] = labels.map((l) => ({
+    value: l.value,
+    label: l.label,
+  }));
+  for (const value of userLabels) {
+    if (value && !options.some((o) => o.value === value)) {
+      options.push({ value, label: value });
+    }
+  }
+  return options;
 };

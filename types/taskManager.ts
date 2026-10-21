@@ -4,6 +4,7 @@ import { BaseState } from "./auth";
 export interface TaskState extends BaseState {
   task: Task | null;
   date: Date | undefined;
+  userLabels: string[];
 }
 
 export interface TaskOperations {
