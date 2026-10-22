@@ -1,8 +1,10 @@
 -- Enable Stripe integration
 create extension if not exists wrappers with schema extensions;
+-- The wrappers extension puts its functions in the "extensions" schema, where
+-- `supabase db push` doesn't look, so name them with that schema.
 create foreign data wrapper stripe_wrapper
-  handler stripe_fdw_handler
-  validator stripe_fdw_validator;
+  handler extensions.stripe_fdw_handler
+  validator extensions.stripe_fdw_validator;
 
 create server stripe_server
 foreign data wrapper stripe_wrapper
