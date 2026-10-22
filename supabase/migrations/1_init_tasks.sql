@@ -1,6 +1,9 @@
 -- Tasks table
 create table public.tasks (
-  task_id uuid default uuid_generate_v4() primary key,
+  -- gen_random_uuid() is built into Postgres, so it needs no extension. (uuid_generate_v4()
+  -- comes from the uuid-ossp extension, which Supabase installs in the "extensions" schema,
+  -- where `supabase db push` doesn't find it.)
+  task_id uuid default gen_random_uuid() primary key,
   user_id uuid references public.profiles on delete cascade,
   title text not null,
   description text,
